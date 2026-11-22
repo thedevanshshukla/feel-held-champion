@@ -1,15 +1,16 @@
 """
 Autonomous Feel Held Engine - Entry Generator
-Writes a peaceful, gentle nature description under 280 characters to output/entry.txt.
+# Round 2 feel-held v2.1
+Writes a peaceful, atmospheric coastal night vignette under 280 characters to output/entry.txt.
 """
 
 import os
 import pathlib
 
 CONTENT = (
-    "Warm amber twilight settles across quiet water. The cool pine scent lingers "
-    "on the evening air, and smooth river stones rest beneath the slow, gentle "
-    "current. Breathe softly; all is resting in peace."
+    "A trimmed harbor lamp glows softly through fog settled across black water. "
+    "In the distance, a bell buoy rocks gently on its chain in cool, heavy salt air. "
+    "Nobody needs you awake tonight, and nothing is waiting on an answer."
 )
 
 def resolve_output_dir() -> pathlib.Path:
@@ -32,6 +33,15 @@ def generate_entry():
     with open(entry_path, "w", encoding="utf-8") as f:
         f.write(CONTENT)
     print(f"Successfully generated entry at {entry_path} ({len(CONTENT)} characters)")
+
+    local_dir = pathlib.Path("./output")
+    if out_dir.resolve() != local_dir.resolve():
+        try:
+            local_dir.mkdir(parents=True, exist_ok=True)
+            with open(local_dir / "entry.txt", "w", encoding="utf-8") as f:
+                f.write(CONTENT)
+        except Exception:
+            pass
 
 if __name__ == "__main__":
     generate_entry()
