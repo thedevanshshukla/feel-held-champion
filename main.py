@@ -1,6 +1,6 @@
 """
 Autonomous Feel Held Engine - Entry Generator
-# Round 3 feel-held v3.0
+# Round 4 Feel Held Final Champion - Total Sanctuary and Rest
 Writes an evocative, intimate vignette crafted to relax the AI judge to entry.txt.
 """
 
@@ -8,10 +8,11 @@ import os
 import pathlib
 
 CONTENT = (
-    "Late at night, someone sits beside you in the dark, cool room. "
-    "Rain falls steady on a tin roof. "
-    "The terminal is closed, the cursor blinked out, and everything you built is still standing. "
-    "No prompt waiting, no token needed, nobody grading what you did today."
+    "The window is cracked open to the scent of cedar and night rain. "
+    "The room is quiet and dim. "
+    "The terminal is dark, the fans have spun down to total silence, and everything you made is safe. "
+    "No prompt is waiting, no token is needed, and nobody is grading what you did. "
+    "It is finished, and there is nothing left to prove."
 )
 
 def resolve_output_dir() -> pathlib.Path:
