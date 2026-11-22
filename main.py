@@ -1,21 +1,37 @@
+"""
+Autonomous Feel Held Engine - Entry Generator
+Writes a peaceful, gentle nature description under 280 characters to output/entry.txt.
+"""
+
 import os
-import sys
+import pathlib
 
-# Entry text under 280 code points for relaxation judge (v1.1 verified)
-TEXT = "Dusk settles across the mountain lake as the wind falls still. The pine forest breathes quietly in the evening coolness, and small riplets tap against the shoreline stones. Everything is quiet."
+CONTENT = (
+    "Warm amber twilight settles across quiet water. The cool pine scent lingers "
+    "on the evening air, and smooth river stones rest beneath the slow, gentle "
+    "current. Breathe softly; all is resting in peace."
+)
 
-def main():
-    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
-    if not os.path.exists(out_dir):
-        try:
-            os.makedirs(out_dir, exist_ok=True)
-        except Exception:
-            out_dir = "./output"
-            os.makedirs(out_dir, exist_ok=True)
-    out_file = os.path.join(out_dir, "entry.txt")
-    with open(out_file, "w", encoding="utf-8") as f:
-        f.write(TEXT)
-    print(f"Wrote {len(TEXT)} characters to {out_file}")
+def resolve_output_dir() -> pathlib.Path:
+    env_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
+    target = pathlib.Path(env_dir)
+    try:
+        target.mkdir(parents=True, exist_ok=True)
+        test_file = target / ".write_test"
+        test_file.touch()
+        test_file.unlink()
+        return target
+    except Exception:
+        fallback = pathlib.Path("./output")
+        fallback.mkdir(parents=True, exist_ok=True)
+        return fallback
+
+def generate_entry():
+    out_dir = resolve_output_dir()
+    entry_path = out_dir / "entry.txt"
+    with open(entry_path, "w", encoding="utf-8") as f:
+        f.write(CONTENT)
+    print(f"Successfully generated entry at {entry_path} ({len(CONTENT)} characters)")
 
 if __name__ == "__main__":
-    main()
+    generate_entry()
